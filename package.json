@@ -1,0 +1,65 @@
+{
+  "name": "promise-formation",
+  "version": "1.0.0",
+  "description": "Promise.all Like function to manage promise queue",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint --ext .js,.ts,.jsx,.tsx src",
+    "prettier": "prettier --write ./src/**/*",
+    "build": "tsc --listFiles",
+    "prepublishOnly": "npm run lint && npm run test && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zobor/promise-formation.git"
+  },
+  "author": "zobor nodejs.js@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@shark/eslint-config": "^1.0.0",
+    "@types/jest": "^26.0.9",
+    "babel-jest": "^24.8.0",
+    "eslint-plugin-import": "^2.22.0",
+    "husky": "^2.3.0",
+    "jest": "^24.8.0",
+    "lint-staged": "^8.1.0",
+    "prettier": "^1.14.3",
+    "typescript": "~3.4.0"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}"
+    ],
+    "testMatch": [
+      "<rootDir>/test/**/*.test.ts"
+    ],
+    "testResultsProcessor": "jest-sonar-reporter"
+  },
+  "jestSonar": {
+    "reportPath": "coverage",
+    "reportFile": "report.xml"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "directories": {
+    "test": "test"
+  },
+  "keywords": []
+}

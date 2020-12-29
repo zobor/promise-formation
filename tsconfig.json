@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+    "target": "es5",
+    "lib": ["es5", "es6", "dom"],
+    "typeRoots": ["./src/typings"],
+    "module": "commonjs",
+    "baseUrl": ".",
+    "allowJs": true,
+    "strict": true
+  },
+  "include": ["src"],
+  "exclude": ["**/node_modules/**", "**/__tests__/*"]
+}
