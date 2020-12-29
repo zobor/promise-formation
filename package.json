@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "lint": "eslint --ext .js,.ts,.jsx,.tsx src",
+    "lint": "eslint src/*ts --fix",
     "prettier": "prettier --write ./src/**/*",
     "build": "tsc --listFiles",
     "prepublishOnly": "npm run lint && npm run test && npm run build"
