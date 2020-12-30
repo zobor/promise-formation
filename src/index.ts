@@ -5,7 +5,7 @@ export const removeOneFromArray = (v: any, array: any[]) =>
 
 const promiseFormation = (
   promiseList: ITask[],
-  max = 2,
+  max = 1,
   options?: {
     addOne?: any;
     stop?: boolean;

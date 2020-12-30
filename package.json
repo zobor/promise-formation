@@ -1,6 +1,6 @@
 {
   "name": "promise-formation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Promise.all Like function to manage promise queue",
   "files": [
     "lib"
@@ -12,7 +12,7 @@
     "lint": "eslint src/*ts --fix",
     "prettier": "prettier --write ./src/**/*",
     "build": "tsc --listFiles",
-    "prepublishOnly": "npm run lint && npm run test && npm run build"
+    "prepublishOnly": "npm run lint && npm run test:coverage && npm run build"
   },
   "repository": {
     "type": "git",
@@ -35,6 +35,8 @@
     "typescript": "~3.4.0"
   },
   "jest": {
+    "silent": false,
+    "verbose": true,
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}"
     ],

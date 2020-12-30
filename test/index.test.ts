@@ -1,13 +1,13 @@
-import promiseOneByOne from "../src";
+import promiseFormation from "../src";
 
 jest.setTimeout(1000);
 
-const getPromises = (len: number): any =>
+const getPromises = (len: number): (() => Promise<number>)[] =>
   Array(len)
     .fill(null)
     .map((_, index) => () =>
       new Promise(async resolve => {
-        await new Promise(rs => {
+        await new Promise((rs: (value: void) => void) => {
           setTimeout(() => {
             rs();
           }, 100);
@@ -21,7 +21,7 @@ const getPromisesFail = (len: number): any =>
     .fill(null)
     .map((_, index) => () =>
       new Promise(async (resolve, reject) => {
-        await new Promise(rs => {
+        await new Promise((rs: (value: void) => void) => {
           setTimeout(() => {
             rs();
           }, 100);
@@ -31,7 +31,7 @@ const getPromisesFail = (len: number): any =>
     );
 
 const delay = time =>
-  new Promise(resolve => {
+  new Promise((resolve: (value: void) => void) => {
     setTimeout(() => {
       resolve();
     }, time);
@@ -43,7 +43,7 @@ jest.setTimeout(30000);
 describe("setTimeout test", () => {
   it("like Promise.all", async () => {
     jest.setTimeout(400);
-    promiseOneByOne(getPromises(3)).then((res: number[]) => {
+    promiseFormation(getPromises(3)).then((res: any) => {
       expect(res.join()).toEqual("1,2,3");
     });
 
@@ -53,7 +53,7 @@ describe("setTimeout test", () => {
   it("concurrency run", async () => {
     jest.setTimeout(900);
 
-    promiseOneByOne(getPromises(9), 3).then((res: number[]) => {
+    promiseFormation(getPromises(9), 3).then((res: any) => {
       expect(res.join()).toEqual("1,2,3,4,5,6,7,8,9");
     });
 
@@ -64,7 +64,7 @@ describe("setTimeout test", () => {
     jest.setTimeout(300);
 
     const promiseOptions: any = {};
-    promiseOneByOne(getPromises(2), 1, promiseOptions).then((res: number[]) => {
+    promiseFormation(getPromises(2), 1, promiseOptions).then((res: any) => {
       expect(res.join()).toEqual("1,2,1");
     });
     promiseOptions.addOne(getPromises(1)[0]);
@@ -81,7 +81,7 @@ describe("setTimeout test", () => {
       fn.id = `test-${index + 1}`;
       return fn;
     });
-    promiseOneByOne(p, 1, promiseOptions).then((res: any[]) => {
+    promiseFormation(p, 1, promiseOptions).then((res: any) => {
       expect(res.length).toEqual(3);
       expect(isError(res[1])).toBeTruthy();
     });
@@ -99,7 +99,7 @@ describe("setTimeout test", () => {
       fn.id = `test-${index + 1}`;
       return fn;
     });
-    promiseOneByOne(p, 1, promiseOptions).then((res: any[]) => {
+    promiseFormation(p, 1, promiseOptions).then((res: any) => {
       expect(res.length).toEqual(3);
       expect(isError(res[0])).toBeTruthy();
     });
@@ -113,7 +113,7 @@ describe("setTimeout test", () => {
 
     const p1 = getPromises(1)[0];
     const p2 = getPromisesFail(1)[0];
-    promiseOneByOne([p1, p2])
+    promiseFormation([p1, p2])
       .then()
       .catch((rs: any[]) => {
         expect(rs.length).toEqual(2);
