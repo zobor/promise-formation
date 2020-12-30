@@ -8,74 +8,15 @@
 npm i promise-formation -S
 ```
 
-## Usage
-
-### Promise.all
-
-```js
-const p1 = new Promise(resolve => {
-  setTimeout(() => {
-    console.log(1);
-    resolve("A");
-  }, 3);
-});
-const p2 = new Promise(resolve => {
-  setTimeout(() => {
-    console.log(2);
-    resolve("B");
-  }, 2);
-});
-const p3 = new Promise(resolve => {
-  setTimeout(() => {
-    console.log(3);
-    resolve("C");
-  }, 1);
-});
-
-Promise.all([p1, p2, p3]).then(rs => {
-  console.log(rs);
-});
-// 3
-// 2
-// 1
-// A B C
-```
-
-### Promilse.formation
-
-```js
-import promiseFormation from "promise-formation";
-
-const p1 = () =>
-  new Promise(resolve => {
-    setTimeout(() => {
-      console.log(1);
-      resolve("A");
-    }, 3);
-  });
-const p2 = () =>
-  new Promise(resolve => {
-    setTimeout(() => {
-      console.log(2);
-      resolve("B");
-    }, 2);
-  });
-const p3 = () =>
-  new Promise(resolve => {
-    setTimeout(() => {
-      console.log(3);
-      resolve("C");
-    }, 1);
-  });
-
-promiseFormation([p1, p2, p3]).then(rs => {
-  console.log(rs);
-  // 1
-  // 2
-  // 3
-  // ["A", "B", "C"]
-});
-```
+**PromiseFormation VS Promise.all**
+||Promise.all|PromiseFormation|
+|---|---|---|
+|并行执行异步函数|✔|✔|
+|控制任务顺序|✘|✔|
+|限制并发数量|✘|✔|
+|动态添加任务|✘|✔|
+|动态停止任务|✘|✔|
+|停止指定的任务|✘|✔|
 
 ## Document
 
