@@ -11,7 +11,8 @@
     "test:coverage": "jest --coverage",
     "lint": "eslint src/*ts --fix",
     "prettier": "prettier --write ./src/**/*",
-    "build": "tsc --listFiles",
+    "build-tsc": "tsc --listFiles",
+    "build": "node esbuild.config.js",
     "prepublishOnly": "npm run lint && npm run test:coverage && npm run build"
   },
   "repository": {
@@ -27,6 +28,7 @@
     "@shark/eslint-config": "^1.0.0",
     "@types/jest": "^26.0.9",
     "babel-jest": "^24.8.0",
+    "esbuild": "^0.8.27",
     "eslint-plugin-import": "^2.22.0",
     "husky": "^2.3.0",
     "jest": "^24.8.0",
